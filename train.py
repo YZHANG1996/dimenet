@@ -95,7 +95,7 @@ if targets[0] in ['mu', 'homo', 'lumo','zpve']:
     output_init = 'zeros'
 else:
     output_init = 'GlorotOrthogonal'
-extensive = True
+extensive = False
 
 # Used for creating a random "unique" id for this run
 def id_generator(size=8, chars=string.ascii_uppercase + string.ascii_lowercase + string.digits):
