@@ -6,7 +6,6 @@ import logging
 import string
 import random
 import yaml
-import argparse
 from datetime import datetime
 
 from dimenet.model.dimenet import DimeNet
@@ -16,15 +15,6 @@ from dimenet.training.trainer import Trainer
 from dimenet.training.metrics import Metrics
 from dimenet.training.data_container import DataContainer
 from dimenet.training.data_provider import DataProvider
-
-
-parser = argparse.ArgumentParser(description='dimenet')
-parser.add_argument('--property', type=str, default='homo', metavar='N',
-                    help='label to predict: alpha | gap | homo | lumo | mu | Cv | G | H | r2 | U | U0 | zpve')
-parser.add_argument('--agg_mode', type=str, default='sum', metavar='N',
-                    help='aggregation of atomic predictions, can be avg, sum and max')
-args = parser.parse_args()
-
 
 # Set up logger
 logger = logging.getLogger()
@@ -100,17 +90,12 @@ save_interval = config['save_interval']
 restart = config['restart']
 comment = config['comment']
 
-targets = [args.property]  # ['mu', 'alpha', 'homo', 'lumo', 'gap', 'r2', 'zpve', 'U0', 'U', 'H', 'G', 'Cv']
+targets = ['homo']  # ['mu', 'alpha', 'homo', 'lumo', 'gap', 'r2', 'zpve', 'U0', 'U', 'H', 'G', 'Cv']
 if targets[0] in ['mu', 'homo', 'lumo','zpve']:
     output_init = 'zeros'
 else:
     output_init = 'GlorotOrthogonal'
-if args.agg_mode == "sum" or args.agg_mode == "add":
-    extensive = True
-elif args.agg_mode == "avg" or args.agg_mode == "mean":
-    extensive = False
-elif args.agg_mode == "max":
-    extensive = "max"
+extensive = True
 
 # Used for creating a random "unique" id for this run
 def id_generator(size=8, chars=string.ascii_uppercase + string.ascii_lowercase + string.digits):

@@ -4,7 +4,7 @@ APPDIR=`dirname $0`
 cd ./repo
 pip install sympy
 pip install tensorflow-addons==0.17.1
-pip install numpy==1.19.2
+# pip install numpy==1.19.2
 python train.py $@
 
 return $?
