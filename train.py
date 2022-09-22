@@ -22,7 +22,7 @@ parser = argparse.ArgumentParser(description='dimenet')
 parser.add_argument('--property', type=str, default='homo', metavar='N',
                     help='label to predict: alpha | gap | homo | lumo | mu | Cv | G | H | r2 | U | U0 | zpve')
 parser.add_argument('--agg_mode', type=str, default='sum', metavar='N',
-                    help='aggregation of atomic predictions')
+                    help='aggregation of atomic predictions, can be avg, sum and max')
 args = parser.parse_args()
 
 
@@ -109,6 +109,8 @@ if args.agg_mode == "sum":
     extensive = True
 elif args.agg_mode == "avg":
     extensive = False
+elif args.agg_mode == "max":
+    extensive = "max"
 
 # Used for creating a random "unique" id for this run
 def id_generator(size=8, chars=string.ascii_uppercase + string.ascii_lowercase + string.digits):

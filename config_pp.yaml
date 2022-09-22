@@ -22,7 +22,7 @@ num_train: 110000
 num_valid: 10000
 data_seed: 42
 dataset: "data/qm9_eV.npz"
-logdir: "/mnt/nfs-mnj-hot-01/tmp/i22_yzhang/dimenetpp/extensive"
+logdir: "/mnt/nfs-mnj-hot-01/tmp/i22_yzhang/dimenetpp"
 
 num_steps: 3000000
 ema_decay: 0.999

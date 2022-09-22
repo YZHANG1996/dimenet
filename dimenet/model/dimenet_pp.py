@@ -128,8 +128,12 @@ class DimeNetPP(tf.keras.Model):
             x = self.int_blocks[i]([x, rbf, sbf, id_expand_kj, id_reduce_ji])
             P += self.output_blocks[i+1]([x, rbf, idnb_i, n_atoms])
 
-        if self.extensive:
+        print ("value of extensive:", self.extensive)
+        if self.extensive == True:
             P = tf.math.segment_sum(P, batch_seg)
-        else:
+        elif self.extensive == False:
             P = tf.math.segment_mean(P, batch_seg)
+        else:
+            P = tf.math.segment_max(P, batch_seg)
+        
         return P
