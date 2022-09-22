@@ -129,11 +129,19 @@ class DimeNetPP(tf.keras.Model):
             P += self.output_blocks[i+1]([x, rbf, idnb_i, n_atoms])
 
         print ("value of extensive:", self.extensive)
+
         if self.extensive == True:
+            print ("sum pooling is used")
             P = tf.math.segment_sum(P, batch_seg)
         elif self.extensive == False:
+            print ("avg pooling is used")
             P = tf.math.segment_mean(P, batch_seg)
         else:
+            print ("max pooling is used")
             P = tf.math.segment_max(P, batch_seg)
-        
+
+        # if self.extensive:
+        #     P = tf.math.segment_sum(P, batch_seg)
+        # else:
+        #     P = tf.math.segment_mean(P, batch_seg)
         return P
